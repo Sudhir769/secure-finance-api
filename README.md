@@ -18,22 +18,21 @@ Designed with scalable backend architecture in mind, this API serves as the core
 - **Dynamic Filtering:** Query-based search engine to filter transactions by type and category.
 - **Containerized Database:** PostgreSQL database runs in an isolated Docker container for a reproducible and clean development environment.
 
-## 🏗️ System Architecture
+ 🏗️ System Architecture
 
-mermaid
+## mermaid
 graph LR
     Client([Client / Postman]) -->|HTTP Requests| Express[Express.js Router]
-    
     subgraph Security Layer
         Express --> Auth[JWT Auth Middleware]
         Auth --> RBAC[Role Bouncer]
     end
     
-    subgraph Business Logic
+subgraph Business Logic
         RBAC --> Controllers[Controllers]
         Controllers --> Services[Services / Math Engine]
     end
     
-    subgraph Data Layer
+subgraph Data Layer
         Services -->|SQL Queries| DB[(PostgreSQL in Docker)]
     end
